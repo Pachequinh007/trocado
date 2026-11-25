@@ -1,4 +1,5 @@
-// Teste de ponta a ponta no Chrome sem janela (tamanho de celular): node tests/navegador.js <pasta-dos-prints>
+// Teste de ponta a ponta no Chrome sem janela (tamanho de celular): node tests/navegador.js <pasta-dos-prints> [url]
+// Sem url, sobe um servidor local; com url (ex.: o GitHub Pages), testa o site publicado.
 // Sobe um servidor local, usa o protocolo de depuração do Chrome (WebSocket nativo do Node 22+) e confere as telas.
 const { spawn } = require("node:child_process");
 const fs = require("node:fs");
@@ -8,13 +9,14 @@ const path = require("node:path");
 const RAIZ = path.join(__dirname, "..");
 const PRINTS = process.argv[2] || fs.mkdtempSync(path.join(os.tmpdir(), "trocado-"));
 const PORTA = 8811, DEPURA = 9333;
+const URL_APP = process.argv[3] || "http://127.0.0.1:" + PORTA + "/";
 const CHROME = ["C:/Program Files/Google/Chrome/Application/chrome.exe", "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"].find(fs.existsSync);
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));
 let falhas = 0;
 const ok = (cond, texto) => { console.log((cond ? "PASS " : "FAIL ") + texto); if (!cond) falhas++; };
 
 async function main() {
-  const servidor = spawn("python", ["-m", "http.server", String(PORTA), "--bind", "127.0.0.1"], { cwd: RAIZ, stdio: "ignore" });
+  const servidor = process.argv[3] ? { kill() {} } : spawn("python", ["-m", "http.server", String(PORTA), "--bind", "127.0.0.1"], { cwd: RAIZ, stdio: "ignore" });
   const perfil = fs.mkdtempSync(path.join(os.tmpdir(), "trocado-chrome-"));
   const chrome = spawn(CHROME, ["--headless=new", "--remote-debugging-port=" + DEPURA, "--user-data-dir=" + perfil,
     "--window-size=412,915", "--no-first-run", "--no-default-browser-check", "about:blank"], { stdio: "ignore" });
@@ -44,7 +46,7 @@ async function main() {
     };
     await cdp("Runtime.enable"); await cdp("Log.enable"); await cdp("Page.enable"); await cdp("Network.enable");
     await cdp("Emulation.setDeviceMetricsOverride", { width: 412, height: 915, deviceScaleFactor: 2, mobile: true });
-    await cdp("Page.navigate", { url: "http://127.0.0.1:" + PORTA + "/" });
+    await cdp("Page.navigate", { url: URL_APP });
     await espera(1500);
 
     // ajudantes dentro da página

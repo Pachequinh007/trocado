@@ -3,7 +3,7 @@
 App de finanças pessoais **grátis, sem anúncios e sem conta**: anote o que entra e o que sai, veja para onde vai o
 dinheiro, controle as contas a pagar e o limite de cada categoria. Tudo fica **só no aparelho** de quem usa.
 
-**Usar:** abra o link no celular e toque em **Instalar** (Android/PC) ou em Compartilhar → **Adicionar à Tela de
+**Usar:** abra https://pachequinh007.github.io/trocado/ no celular e toque em **Instalar** (Android/PC) ou em Compartilhar → **Adicionar à Tela de
 Início** (iPhone). Depois de instalado, funciona sem internet.
 
 ## O que tem
@@ -24,6 +24,7 @@ marca nem código de ninguém.
 ```
 node --test tests/util.test.js   # regras de dinheiro (util.js)
 node tests/navegador.js          # ponta a ponta no Chrome sem janela, tamanho de celular, inclusive offline
+node tests/navegador.js <pasta> https://pachequinh007.github.io/trocado/   # o mesmo, no site publicado
 ```
 
 ## Publicar uma versão nova
