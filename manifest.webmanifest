@@ -1,0 +1,24 @@
+{
+  "name": "Trocado · finanças simples",
+  "short_name": "Trocado",
+  "description": "Anote o que entra e o que sai, veja para onde vai o dinheiro e não esqueça as contas. Tudo fica só no seu celular.",
+  "lang": "pt-BR",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0B1019",
+  "theme_color": "#0E7C4A",
+  "categories": ["finance", "productivity"],
+  "icons": [
+    {"src": "icones/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icones/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icones/icone-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
+    {"src": "icones/icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+  ],
+  "shortcuts": [
+    {"name": "Lançar", "url": "./#lancar", "icons": [{"src": "icones/icone-192.png", "sizes": "192x192"}]},
+    {"name": "Contas a pagar", "url": "./#contas", "icons": [{"src": "icones/icone-192.png", "sizes": "192x192"}]}
+  ]
+}
